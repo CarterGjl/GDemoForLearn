@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+   <androidx.appcompat.widget.Toolbar
+       android:id="@+id/toobar"
+       android:background="@color/colorPrimary"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+      <ProgressBar
+          android:layout_gravity="center"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </androidx.appcompat.widget.Toolbar>
+
+   <AutoCompleteTextView
+       android:inputType="text"
+
+       android:id="@+id/at"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" />
+
+   <Button
+       android:text="insert"
+       android:onClick="insert"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+   <Button
+       android:text="update"
+       android:onClick="update"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+   <Button
+       android:text="query"
+       android:onClick="query"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+   <Button
+       android:text="insetbook"
+       android:onClick="insertBoo"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+   <Button
+
+       android:text="updateCo"
+       android:onClick="updateCo"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />】
+
+   <Button
+       android:text="changetheme"
+       android:onClick="changeTheme"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+
+
+</LinearLayout>
