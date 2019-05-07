@@ -1,6 +1,7 @@
 package aop.demo.jetpack.android.androidjetpackroom;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(TAG, "onCreate: ");
 
         Disposable subscribe1 = NetManager.create(GetArticleI.class)
                 .getWx()
@@ -257,5 +259,16 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        setTheme(R.style.AppTheme1);
         recreate();
+    }
+
+    public void click(View view) {
+        Intent intent = new Intent(this, BActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 }

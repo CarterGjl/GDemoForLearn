@@ -78,7 +78,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="$USER_HOME$/Desktop/carter" schema="main" />
+            <file path="$PROJECT_DIR$/../Desktop/carter" schema="main" />
           </files>
           <os-authentication value="false" />
           <empty-authentication value="false" />

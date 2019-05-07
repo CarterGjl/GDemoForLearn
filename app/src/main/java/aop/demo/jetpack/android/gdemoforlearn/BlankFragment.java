@@ -9,14 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import aop.demo.jetpack.android.gdemoforlearn.view.EditButton;
 
 import android.text.Editable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 
@@ -75,7 +78,15 @@ public class BlankFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+
+        //取消按钮
+        EditButton editButton = new EditButton(getContext(),  40);
+        final FrameLayout.LayoutParams btn_cancel_param = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        btn_cancel_param.gravity = Gravity.CENTER_VERTICAL;
+        btn_cancel_param.setMargins((4) -  2, 0, 0, 0);
+        editButton.setLayoutParams(btn_cancel_param);
+        View inflate = inflater.inflate(R.layout.fragment_blank, container, false);
+        return inflate;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
