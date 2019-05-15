@@ -1,1 +1,1 @@
-include ':app', ':androidjetpackroom', ':atpeople', ':myapplication'
+include ':app', ':androidjetpackroom', ':atpeople', ':myapplication', ':exoplayer'

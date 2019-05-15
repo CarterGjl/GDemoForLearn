@@ -50,12 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 .getWx()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Result<Object>>() {
-                    @Override
-                    public void accept(Result<Object> objectResult) throws Exception {
-                        Log.d(TAG, "accept: "+objectResult);
-                    }
-                }, new Consumer<Throwable>() {
+                .subscribe(objectResult -> Log.d(TAG, "accept: "+objectResult), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         Log.e(TAG, "accept: ",throwable );
@@ -65,12 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 .getArticle(405, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Result<Object>>() {
-                    @Override
-                    public void accept(Result<Object> stringResult) throws Exception {
-                        Log.d(TAG, "accept: " + stringResult);
-                    }
-                }, new Consumer<Throwable>() {
+                .subscribe(stringResult -> Log.d(TAG, "accept: " + stringResult), new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
 
