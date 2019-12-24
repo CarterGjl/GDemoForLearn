@@ -21,13 +21,10 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Assertions;
-import com.google.android.exoplayer2.util.Util;
 
 import java.util.Arrays;
 
 import aop.demo.jetpack.android.exoplayer.DemoApplication;
-import aop.demo.jetpack.android.exoplayer.ExoPlayControyInterface;
 
 public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListener {
 
@@ -99,6 +96,7 @@ public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListen
                 if (playWhenReady){
                     handler.post(updateProgressAction);
                 }
+                updatePlayPauseButton();
                 Log.d(TAG, "onPlayerStateChanged: playWhenReady:" + playbackState);
             }
 
@@ -139,6 +137,22 @@ public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListen
         mSimpleExoPlayer.setPlayWhenReady(true);
     }
 
+    private boolean isPlaying() {
+        return mSimpleExoPlayer != null
+                && mSimpleExoPlayer.getPlaybackState() != Player.STATE_ENDED
+                && mSimpleExoPlayer.getPlaybackState() != Player.STATE_IDLE
+                && mSimpleExoPlayer.getPlayWhenReady();
+    }
+
+    private void updatePlayPauseButton() {
+        boolean requestPlayPauseFocus = false;
+        boolean playing = isPlaying();
+        
+        if (mOnProgressChangeListener != null) {
+            mOnProgressChangeListener.onPlayStateChange(playing);
+        }
+    }
+
     @Override
     public void stop() {
         mDefaultControlDispatcher.dispatchSetPlayWhenReady(mSimpleExoPlayer, false);
@@ -146,7 +160,7 @@ public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListen
 
     @Override
     public void seekTo(long position) {
-        mDefaultControlDispatcher.dispatchSeekTo(mSimpleExoPlayer, 1, position);
+        seekToTimeBarPosition(position);
     }
 
     @Override
@@ -257,7 +271,7 @@ public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListen
 
             Log.d(TAG, "updateProgress: "+position);
             if (mOnProgressChangeListener != null) {
-                mOnProgressChangeListener.progress(position);
+                mOnProgressChangeListener.progress(position, duration);
             }
 //            if (timeBar != null) {
 //                int extraAdGroupCount = extraAdGroupTimesMs.length;
@@ -310,9 +324,15 @@ public class ExoPlayManager implements ExoPlayControyInterface, LifecyclerListen
         }
     }
 
+    public void setOnProgressChangeListener(@Nullable OnProgressChangeListener onProgressChangeListener) {
+        mOnProgressChangeListener = onProgressChangeListener;
+    }
+
     private OnProgressChangeListener mOnProgressChangeListener;
     public interface OnProgressChangeListener{
 
-        void progress(long progress);
+        void progress(long position, long duration);
+
+        void onPlayStateChange(boolean playing);
     }
 }

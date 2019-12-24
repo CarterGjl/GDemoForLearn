@@ -1,1 +1,1 @@
-include ':app', ':androidjetpackroom', ':atpeople', ':myapplication', ':exoplayer'
+include ':app', ':androidjetpackroom', ':atpeople', ':aopdemo', ':exoplayer', ':jetpackcompose', ':demo', ':myapplication', ':login', ':kotlin', ':animationdemo', ':jetpack', ':databingding', ':demolayout', ':wanandroidkotlin'

@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultControlDispatcher;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -35,11 +38,21 @@ import aop.demo.jetpack.android.exoplayer.playmanager.ExoPlayManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView mTvCurPro;
+    private SeekBar mPb;
+
+
     private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        mTvCurPro = findViewById(R.id.tv_cur_pro);
+        mPb = findViewById(R.id.pb);
+
         DefaultControlDispatcher defaultControlDispatcher = new DefaultControlDispatcher();
         SimpleExoPlayer simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(this, new DefaultTrackSelector());
 
@@ -126,7 +139,37 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
 
-        ExoPlayManager.create(this).play("");
+        ExoPlayManager exoPlayManager = ExoPlayManager.create(this);
+        exoPlayManager.play("");
+        exoPlayManager.setOnProgressChangeListener(new ExoPlayManager.OnProgressChangeListener() {
+            @Override
+            public void progress(long position, long duration) {
+                mPb.setMax((int) duration);
+                mPb.setProgress((int) position);
+            }
+
+            @Override
+            public void onPlayStateChange(boolean playing) {
+
+            }
+        });
+        mPb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                exoPlayManager.seekTo(seekBar.getProgress());
+            }
+        });
+
 //        simpleExoPlayer.setPlayWhenReady(true);
         try {
             DownloadService.start(this, DemoDownloadService.class);

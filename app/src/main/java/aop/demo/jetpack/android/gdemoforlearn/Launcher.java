@@ -83,6 +83,13 @@ public class Launcher extends AppCompatActivity {
 
         AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        mTv.setOnClickListener(new View.OnClickListener() {
+            @CheckLogin
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: ");
+            }
+        });
         test();
 //        audioManager.registerMediaButtonEventReceiver();
 
